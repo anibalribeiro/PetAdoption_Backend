@@ -1,0 +1,8 @@
+{
+  "age": 0.3,
+  "category": "DOG",
+  "description": "descrip",
+  "name": "Rex",
+  "photo": "http://localhost/files/photo.jpg",
+  "userId": 1
+}

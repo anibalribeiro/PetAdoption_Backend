@@ -1,0 +1,12 @@
+{
+  "id": "${json-unit.ignore}",
+  "createdDate": "${json-unit.ignore}",
+  "updatedDate": "${json-unit.ignore}",
+  "version": 0,
+  "name": "Rex",
+  "age": 0.3,
+  "category": "DOG",
+  "description": "descrip",
+  "photo": "http://localhost/files/photo.jpg",
+  "active": true
+}

@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "id": "${json-unit.ignore}",
+      "createdDate": "${json-unit.ignore}",
+      "updatedDate": "${json-unit.ignore}",
+      "version": 0,
+      "name": "Frantisek",
+      "age": 1.5,
+      "category": "DOG",
+      "description": "nice dog",
+      "photo": "http://localhost/files/photo2.jpg",
+      "active": true
+    },
+    {
+      "id": "${json-unit.ignore}",
+      "createdDate": "${json-unit.ignore}",
+      "updatedDate": "${json-unit.ignore}",
+      "version": 0,
+      "name": "Rex",
+      "age": 0.3,
+      "category": "DOG",
+      "description": "descrip",
+      "photo": "http://localhost/files/photo.jpg",
+      "active": true
+    }
+  ],
+  "pagination": {
+    "perPage": 20,
+    "totalRecords": 2,
+    "currentPage": 0,
+    "maxPerPage": 20,
+    "totalPages": 1
+  },
+  "empty": false
+}
