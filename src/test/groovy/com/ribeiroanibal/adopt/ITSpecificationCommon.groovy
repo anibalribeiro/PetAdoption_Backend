@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.ribeiroanibal.adopt.model.User
 import com.ribeiroanibal.adopt.rest.dto.LoginRequest
 import com.ribeiroanibal.adopt.rest.dto.UserPostDto
-
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase
 import org.junit.Assert
 import org.springframework.beans.factory.annotation.Autowired

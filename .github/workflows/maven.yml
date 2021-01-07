@@ -1,4 +1,4 @@
-name: Feature Branch
+name: Building branch
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
 
   test:
-    name: Unit Test
+    name: Tests
     runs-on: ubuntu-18.04
 
     steps:
