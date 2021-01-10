@@ -34,7 +34,7 @@ class PetControllerIT extends ITSpecificationCommon {
 
     def "should create, get, list and update an pet"() {
         given:
-        def user = registerUser()
+        def user = registerUser(initialUser.username, initialUser.password, initialUser.phone)
         def pet = new Pet('Frantisek',
                 1.5,
                 PetCategoryEnum.DOG,
@@ -43,7 +43,7 @@ class PetControllerIT extends ITSpecificationCommon {
                 'http://localhost/files/photo2.jpg',
                 true)
         def created = petService.addEntity(pet)
-        def jwtDetails = authenticateAndGetDetails()
+        def jwtDetails = authenticateAndGetDetails(initialUser.username, initialUser.password)
         def accessToken = 'Bearer ' + jwtDetails.get("token").toString()
 
         when: "POST request to create an pet"
@@ -105,10 +105,50 @@ class PetControllerIT extends ITSpecificationCommon {
         petRepository.deleteAll()
     }
 
+    def "should test permissions for updating and removing a pet"() {
+        given:
+        def user = registerUser(initialUser.username, initialUser.password, initialUser.phone)
+        def pet = new Pet('Frantisek',
+                1.5,
+                PetCategoryEnum.DOG,
+                'nice dog',
+                user,
+                'http://localhost/files/photo2.jpg',
+                true)
+        def created = petService.addEntity(pet)
+
+        when: "add another user and try to modify the previous added pet from a different user"
+        def newUser = registerUser('newUser', 'pass', '123')
+        def jwtDetails = authenticateAndGetDetails(newUser.username, 'pass')
+        def accessToken = 'Bearer ' + jwtDetails.get("token").toString()
+        def response = apiPut(
+                put(AdoptApplication.API_PETS_ITEM, created.id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .header(AUTHORIZATION_HEADER, accessToken),
+                new PetPutDto(0L,
+                        'Frantisek',
+                        1.5,
+                        PetCategoryEnum.DOG,
+                        'nice dog',
+                        user.id,
+                        'http://localhost/files/photo2.jpg',
+                        false),
+                HttpStatus.FORBIDDEN
+        )
+
+        then:
+        response.errorId == 'ERROR.ACCESS.PERMISSION'
+        response.messageParams == []
+
+        cleanup:
+        userRepository.deleteAll()
+        petRepository.deleteAll()
+    }
+
     @Unroll
     def "#url should return #expected"() {
         given:
-        def user = registerUser()
+        def user = registerUser(initialUser.username, initialUser.password, initialUser.phone)
         petService.addEntity(new Pet('Pet 1', 1.4, PetCategoryEnum.DOG, 'desc pet 1', user, '1', true))
         petService.addEntity(new Pet('Pet 2', 2.5, PetCategoryEnum.CAT, 'desc pet 2', user, '2', true))
         petService.addEntity(new Pet('Pet 3', 0.2, PetCategoryEnum.FISH, 'desc pet 3', user, '3', true))

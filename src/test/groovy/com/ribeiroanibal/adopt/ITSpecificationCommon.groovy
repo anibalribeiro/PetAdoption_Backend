@@ -30,10 +30,10 @@ abstract class ITSpecificationCommon extends ApiSpecification {
 
     def initialUser = new User('user1@email.com', 'pass', '123456')
 
-    protected Map<String, Object> authenticateAndGetDetails() {
+    protected Map<String, Object> authenticateAndGetDetails(String username, String password) {
         def response = apiPost(
                 post(AdoptApplication.API_AUTH + '/signin'),
-                new LoginRequest(initialUser.username, initialUser.password)
+                new LoginRequest(username, password)
         )
         objectMapper.convertValue(response, Map)
     }
@@ -62,10 +62,10 @@ abstract class ITSpecificationCommon extends ApiSpecification {
         }
     }
 
-    protected User registerUser() {
+    protected User registerUser(String username, String password, String phone) {
         def response = apiPost(
                 post(AdoptApplication.API_AUTH + '/signup'),
-                new UserPostDto(initialUser.username, initialUser.password, initialUser.phone),
+                new UserPostDto(username, password, phone),
                 HttpStatus.CREATED
         )
         objectMapper.convertValue(response, User)

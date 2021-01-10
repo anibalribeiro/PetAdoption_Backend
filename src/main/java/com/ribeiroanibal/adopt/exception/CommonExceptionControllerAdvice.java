@@ -62,6 +62,13 @@ public class CommonExceptionControllerAdvice extends ResponseEntityExceptionHand
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler(PermissionException.class)
+    public ResponseEntity<?> permissionException(final PermissionException ex) {
+        logger.info("Access denied exception {}", ex.getMessage());
+        final ApiError error = ApiError.of(ApplicationException.ERROR_ACCESS_PERMISSION);
+        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<?> authenticationException(final AuthenticationException ex) {
         logger.info("Permission denied.", ex);
