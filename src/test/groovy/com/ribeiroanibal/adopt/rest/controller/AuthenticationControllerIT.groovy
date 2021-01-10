@@ -26,7 +26,7 @@ class AuthenticationControllerIT extends ITSpecificationCommon {
 
     def "token should contain username"() {
         given:
-        def user = registerUser()
+        def user = registerUser(initialUser.username, initialUser.password, initialUser.phone)
 
         expect:
         authenticateAndDecodeToken().sub == user.username
@@ -59,8 +59,8 @@ class AuthenticationControllerIT extends ITSpecificationCommon {
 
     def "request with proper permission should pass"() {
         given:
-        def user = registerUser()
-        def jwtDetails = authenticateAndGetDetails()
+        def user = registerUser(initialUser.username, initialUser.password, initialUser.phone)
+        def jwtDetails = authenticateAndGetDetails(initialUser.username, initialUser.password)
         def accessToken = 'Bearer ' + jwtDetails.get("token").toString()
 
         expect:
@@ -109,7 +109,7 @@ class AuthenticationControllerIT extends ITSpecificationCommon {
     }
 
     private Map<String, Object> authenticateAndDecodeToken() {
-        def jwtToken = authenticateAndGetDetails().token.toString()
+        def jwtToken = authenticateAndGetDetails(initialUser.username, initialUser.password).token.toString()
         def parts = jwtToken.split("\\."); // split out the "parts" (header, payload and signature)
 
         def payloadJson = new String(Base64.urlDecoder.decode(parts[1]))
