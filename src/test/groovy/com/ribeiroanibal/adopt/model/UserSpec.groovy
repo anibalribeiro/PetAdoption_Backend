@@ -26,7 +26,6 @@ class UserSpec extends Specification {
         then:
         with(deserialized) {
             username == 'username'
-            password == 'passowrd'
             phone == '123456'
         }
     }

@@ -1,7 +1,9 @@
 package com.ribeiroanibal.adopt.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ribeiroanibal.adopt.model.enums.PetCategoryEnum;
+import com.ribeiroanibal.adopt.rest.dto.UserResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -47,4 +50,13 @@ public class Pet extends BaseEntity {
     private String photo;
 
     private Boolean active;
+
+    @JsonProperty("user")
+    public UserResponseDto getUser() {
+        return new UserResponseDto(
+                Optional.ofNullable(user).map(BaseEntity::getId).orElse(null),
+                Optional.ofNullable(user).map(User::getUsername).orElse(null),
+                Optional.ofNullable(user).map(User::getPhone).orElse(null)
+        );
+    }
 }
