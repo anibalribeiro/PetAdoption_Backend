@@ -10,7 +10,12 @@
       "category": "DOG",
       "description": "nice dog",
       "photo": "http://localhost/files/photo2.jpg",
-      "active": true
+      "active": true,
+      "user": {
+        "id": 5,
+        "username": "user1@email.com",
+        "phone": "123456"
+      }
     },
     {
       "id": "${json-unit.ignore}",
@@ -22,15 +27,20 @@
       "category": "DOG",
       "description": "descrip",
       "photo": "http://localhost/files/photo.jpg",
-      "active": true
+      "active": true,
+      "user": {
+        "id": 5,
+        "username": "user1@email.com",
+        "phone": "123456"
+      }
     }
   ],
   "pagination": {
-    "perPage": 20,
+    "totalPages": 1,
+    "maxPerPage": 20,
     "totalRecords": 2,
     "currentPage": 0,
-    "maxPerPage": 20,
-    "totalPages": 1
+    "perPage": 20
   },
   "empty": false
 }

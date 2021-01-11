@@ -8,5 +8,10 @@
   "category": "DOG",
   "description": "descrip",
   "photo": "http://localhost/files/photo.jpg",
-  "active": true
+  "active": true,
+  "user": {
+    "id": 5,
+    "username": "user1@email.com",
+    "phone": "123456"
+  }
 }
